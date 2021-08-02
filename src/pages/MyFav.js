@@ -11,7 +11,7 @@ class MyFav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      url: process.env.REACT_APP_SERVER,
       cartonData: [],
       name: '',
       img: '',
@@ -24,7 +24,7 @@ class MyFav extends React.Component {
 
   componentDidMount = async () => {
     let { email } = this.props.auth0.user
-    let result = await axios.get(`http://localhost:3005/alldata?email=${email}`)
+    let result = await axios.get(`${this.state.url}/alldata?email=${email}`)
 
     this.setState({
       cartonData: result.data,
@@ -57,7 +57,7 @@ class MyFav extends React.Component {
     }
     console.log(updatedopj);
     // http://localhost:3005/update/index
-    let resupdate = await axios.put(`http://localhost:3005/update/${this.state.index}`, updatedopj)
+    let resupdate = await axios.put(`${this.state.url}/update/${this.state.index}`, updatedopj)
     await this.setState({
       cartonData: resupdate.data
     })
@@ -68,7 +68,7 @@ class MyFav extends React.Component {
     let paramsObj = {
       email:this.props.auth0.user.email,
     }
-    let resdelet = await axios.delete(`http://localhost:3005/delete/${index}`, { params: paramsObj })
+    let resdelet = await axios.delete(`${this.state.url}/delete/${index}`, { params: paramsObj })
 
     await this.setState({
       cartonData: resdelet.data,

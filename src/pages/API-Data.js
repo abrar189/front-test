@@ -10,18 +10,18 @@ class MyFavoriteBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // url: process.env.REACT_APP_SERVER,
+      url: process.env.REACT_APP_SERVER,
       dataList: [],
-      // showData: false,
+      
     }
 
   }
 
   componentDidMount = async () => {
-    let result= await axios.get(`http://localhost:3005/api`)
+    let result= await axios.get(`${this.state.url}/api`)
       this.setState({
         dataList: result.data,
-        // showData: true,
+      
       })
    
   }
@@ -35,7 +35,7 @@ class MyFavoriteBooks extends React.Component {
       level: item.level
     };
     // http://localhost:3005/addtofav
-    await axios.post(`http://localhost:3005/addtofav`, dataobj)
+    await axios.post(`${this.state.url}/addtofav`, dataobj)
   }
 
   render() {
